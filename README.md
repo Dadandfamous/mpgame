@@ -27,3 +27,5 @@ Start the server with the `npm run dev`
 ### React Client
 
 Open another terminal session and `cd` into the `client` directory, then run `npm install` to install dependencies and run `npm start` to start the dev server.
+
+ 
