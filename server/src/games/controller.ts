@@ -3,7 +3,7 @@ import {
   Body, Patch
 } from 'routing-controllers'
 import User from '../users/entity'
-import { Game, Player, Board, randomMe } from './entities'
+import { Game, Player, Board } from './entities'
 import { IsBoard, isValidTransition, calculateWinner, finished } from './logic'
 import { Validate } from 'class-validator'
 import { io } from '../index'
@@ -26,11 +26,12 @@ export default class GameController {
     @CurrentUser() user: User
   ) {
     const entity = new Game()//.save()
-    entity.board = randomMe()
+    //entity.board = randomMe()
     entity.treasureX = Math.floor(Math.random() * 3)
     entity.treasureY = Math.floor(Math.random() * 3)
     await entity.save()
 
+    console.log('user test:', user)
 
     await Player.create({
       game: entity,
@@ -94,6 +95,16 @@ export default class GameController {
     if (!player) throw new ForbiddenError(`You are not part of this game`)
     if (game.status !== 'started') throw new BadRequestError(`The game is not started yet`)
     if (player.symbol !== game.turn) throw new BadRequestError(`It's not your turn`)
+
+    // const rowIndex = update[1]
+    // const columnIndex = update[0]
+    // const isCorrect = rowIndex === game.treasureX && columnIndex === game.treasureY
+    // if (isCorrect) {
+    //   game.board[rowIndex][columnIndex] === 'x'
+    // } else {
+    //   game.board[rowIndex][columnIndex] === 'o'
+    // }
+
     if (!isValidTransition(player.symbol, game.board, update.board)) {
       throw new BadRequestError(`Invalid move`)
     }
