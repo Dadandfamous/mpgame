@@ -5,10 +5,10 @@ import { Board, Symbol, Row } from './entities'
 export class IsBoard implements ValidatorConstraintInterface {
 
   validate(board: Board) {
-    const symbols = [ 'x', 'o', null ]
-    return board.length === 3 &&
+    const symbols = ['x', 'o', null]
+    return board.length === 6 &&
       board.every(row =>
-        row.length === 3 &&
+        row.length === 6 &&
         row.every(symbol => symbols.includes(symbol))
       )
   }
@@ -18,15 +18,15 @@ export const isValidTransition = (playerSymbol: Symbol, from: Board, to: Board) 
   const changes = from
     .map(
       (row, rowIndex) => row.map((symbol, columnIndex) => ({
-        from: symbol, 
+        from: symbol,
         to: to[rowIndex][columnIndex]
       }))
     )
-    .reduce((a,b) => a.concat(b))
+    .reduce((a, b) => a.concat(b))
     .filter(change => change.from !== change.to)
 
-  return changes.length === 1 && 
-    changes[0].to === playerSymbol && 
+  return changes.length === 1 &&
+    changes[0].to === playerSymbol &&
     changes[0].from === null
 }
 
@@ -41,7 +41,7 @@ export const calculateWinner = (board: Board): Symbol | null =>
         // diagonal winner ltr
         [0, 1, 2].map(n => board[n][n]),
         // diagonal winner rtl
-        [0, 1, 2].map(n => board[2-n][n])
+        [0, 1, 2].map(n => board[2 - n][n])
       ] as Row[]
     )
     .filter(row => row[0] && row.every(symbol => symbol === row[0]))
@@ -49,5 +49,5 @@ export const calculateWinner = (board: Board): Symbol | null =>
 
 export const finished = (board: Board): boolean =>
   board
-    .reduce((a,b) => a.concat(b) as Row)
+    .reduce((a, b) => a.concat(b) as Row)
     .every(symbol => symbol !== null)
