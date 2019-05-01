@@ -6,9 +6,9 @@ export class IsBoard implements ValidatorConstraintInterface {
 
   validate(board: Board) {
     const symbols = ['x', 'o', null]
-    return board.length === 6 &&
+    return board.length === 3 &&
       board.every(row =>
-        row.length === 6 &&
+        row.length === 3 &&
         row.every(symbol => symbols.includes(symbol))
       )
   }

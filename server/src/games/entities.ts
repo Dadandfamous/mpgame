@@ -2,8 +2,8 @@ import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Index, OneToMany, M
 import User from '../users/entity'
 
 export type Symbol = 'x' | 'o' | null
-export type Row = [Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | 'x']
-export type Board = [Row, Row, Row, Row, Row, Row]
+export type Row = [Symbol | null, Symbol | null, Symbol | 'x']
+export type Board = [Row, Row, Row]
 type Status = 'pending' | 'started' | 'finished'
 
 // let emptyRow: Row = [null, null,null]
@@ -26,25 +26,16 @@ export function randomMe() {
     return array;
   }
 
-  let emptyRow1: Row = [null, null, null, null, null, 'x']
+  let emptyRow1: Row = [null, null, 'x']
   emptyRow1 = shuffle(emptyRow1)
 
-  let emptyRow2: Row = [null, null, null, null, null, 'x']
+  let emptyRow2: Row = [null, null, 'x']
   emptyRow2 = shuffle(emptyRow2)
 
-  let emptyRow3: Row = [null, null, null, null, null, 'x']
+  let emptyRow3: Row = [null, null, 'x']
   emptyRow3 = shuffle(emptyRow3)
 
-  let emptyRow4: Row = [null, null, null, null, null, 'x']
-  emptyRow4 = shuffle(emptyRow4)
-
-  let emptyRow5: Row = [null, null, null, null, null, 'x']
-  emptyRow5 = shuffle(emptyRow5)
-
-  let emptyRow6: Row = [null, null, null, null, null, 'x']
-  emptyRow6 = shuffle(emptyRow6)
-
-  let emptyBoardFunc: Board = [emptyRow1, emptyRow2, emptyRow3, emptyRow4, emptyRow5, emptyRow6]
+  let emptyBoardFunc: Board = [emptyRow1, emptyRow2, emptyRow3]
 
   return emptyBoardFunc
 }
@@ -67,6 +58,12 @@ export class Game extends BaseEntity {
 
   @Column('text', { default: 'pending' })
   status: Status
+
+  @Column('integer')
+  treasureX: number
+
+  @Column('integer')
+  treasureY: number
 
   // this is a relation, read more about them here:
   // http://typeorm.io/#/many-to-one-one-to-many-relations

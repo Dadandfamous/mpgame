@@ -25,9 +25,12 @@ export default class GameController {
   async createGame(
     @CurrentUser() user: User
   ) {
-    const entity = await Game.create()//.save()
+    const entity = new Game()//.save()
     entity.board = randomMe()
-    entity.save()
+    entity.treasureX = Math.floor(Math.random() * 3)
+    entity.treasureY = Math.floor(Math.random() * 3)
+    await entity.save()
+
 
     await Player.create({
       game: entity,
@@ -81,7 +84,7 @@ export default class GameController {
   async updateGame(
     @CurrentUser() user: User,
     @Param('id') gameId: number,
-    @Body() update: GameUpdate
+    @Body() update: GameUpdate //number[]
   ) {
     const game = await Game.findOneById(gameId)
     if (!game) throw new NotFoundError(`Game does not exist`)
