@@ -3,7 +3,7 @@ import {
   Body, Patch
 } from 'routing-controllers'
 import User from '../users/entity'
-import { Game, Player, Board, Treasure } from './entities'
+import { Game, Player, Treasure } from './entities'
 import { io } from '../index'
 
 @JsonController()
@@ -26,14 +26,12 @@ export default class GameController {
     treasure.row = Math.floor(Math.random() * 6)
     treasure.column = Math.floor(Math.random() * 6)
     treasure.game = entity
-    console.log('aaaahhhhhh', treasure)
     await treasure.save()
 
     const treasure2 = new Treasure()
     treasure2.row = Math.floor(Math.random() * 6)
     treasure2.column = Math.floor(Math.random() * 6)
     treasure2.game = entity
-    console.log('aaaahhhhhhhhhh', treasure2)
     await treasure2.save()
 
     await Player.create({
@@ -116,6 +114,7 @@ export default class GameController {
 
     if (isCorrect) {
       game.board[rowIndex][columnIndex] = 'x'
+      console.log('what\'s this', game.board)
       game.status = 'finished'
       game.winner = player.symbol
     } else {
