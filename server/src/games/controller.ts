@@ -4,17 +4,7 @@ import {
 } from 'routing-controllers'
 import User from '../users/entity'
 import { Game, Player, Board } from './entities'
-import { IsBoard, isValidTransition, calculateWinner, finished } from './logic'
-import { Validate } from 'class-validator'
 import { io } from '../index'
-
-class GameUpdate {
-
-  @Validate(IsBoard, {
-    message: 'Not a valid board'
-  })
-  board: Board
-}
 
 @JsonController()
 export default class GameController {
@@ -29,6 +19,11 @@ export default class GameController {
     //entity.board = randomMe()
     entity.treasureX = Math.floor(Math.random() * 3)
     entity.treasureY = Math.floor(Math.random() * 3)
+    // const treasure1 = new Treasure()
+    // treausure.x = ....
+    // treasure.y = ...
+    // await treasure.save()
+    // entity.treasures = [treasure1, treasure2, treasure3]
     await entity.save()
 
     console.log('user test:', user)
@@ -85,7 +80,7 @@ export default class GameController {
   async updateGame(
     @CurrentUser() user: User,
     @Param('id') gameId: number,
-    @Body() update: GameUpdate //number[]
+    @Body() update: number[]
   ) {
     const game = await Game.findOneById(gameId)
     if (!game) throw new NotFoundError(`Game does not exist`)
@@ -96,31 +91,22 @@ export default class GameController {
     if (game.status !== 'started') throw new BadRequestError(`The game is not started yet`)
     if (player.symbol !== game.turn) throw new BadRequestError(`It's not your turn`)
 
-    // const rowIndex = update[1]
-    // const columnIndex = update[0]
-    // const isCorrect = rowIndex === game.treasureX && columnIndex === game.treasureY
-    // if (isCorrect) {
-    //   game.board[rowIndex][columnIndex] === 'x'
-    // } else {
-    //   game.board[rowIndex][columnIndex] === 'o'
-    // }
-
-    if (!isValidTransition(player.symbol, game.board, update.board)) {
-      throw new BadRequestError(`Invalid move`)
-    }
-
-    const winner = calculateWinner(update.board)
-    if (winner) {
-      game.winner = winner
+    // ATTENTION //////////////
+    // this connects the frontend input with the predefined location of the treasure:
+    const rowIndex = update[0]
+    const columnIndex = update[1]
+    const isCorrect = rowIndex === game.treasureX && columnIndex === game.treasureY
+    console.log('isCorrect test:', isCorrect)
+    if (isCorrect) {
+      game.board[rowIndex][columnIndex] = 'x'
       game.status = 'finished'
-    }
-    else if (finished(update.board)) {
-      game.status = 'finished'
-    }
-    else {
+      game.winner = player.symbol
+    } else {
+      game.board[rowIndex][columnIndex] = 'o'
       game.turn = player.symbol === 'x' ? 'o' : 'x'
     }
-    game.board = update.board
+    console.log('game.board test:', game.board)
+ 
     await game.save()
 
     io.emit('action', {

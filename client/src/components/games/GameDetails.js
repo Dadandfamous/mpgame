@@ -31,8 +31,6 @@ class GameDetails extends PureComponent {
     updateGame(game.id, [toRow, toCell])
   }
 
-
-
   render() {
     const { game, users, authenticated, userId } = this.props
 
