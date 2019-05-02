@@ -17,7 +17,7 @@ const TopBar = (props) => {
     <AppBar position="absolute" style={{zIndex:10}}>
       <Toolbar className="toolbar">
         <Typography variant="title" color="inherit" style={{flex: 1}}>
-          /// Treasurehunt Extreme
+          <h3>/\/\/Treasurehunt Extreme</h3>
         </Typography>
         {
           user &&
