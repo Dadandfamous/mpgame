@@ -3,7 +3,7 @@ import {
   Body, Patch
 } from 'routing-controllers'
 import User from '../users/entity'
-import { Game, Player, Board } from './entities'
+import { Game, Player, Board, Treasure } from './entities'
 import { io } from '../index'
 
 @JsonController()
@@ -15,18 +15,26 @@ export default class GameController {
   async createGame(
     @CurrentUser() user: User
   ) {
-    const entity = new Game()//.save()
-    //entity.board = randomMe()
-    entity.treasureX = Math.floor(Math.random() * 6)
-    entity.treasureY = Math.floor(Math.random() * 6)
-    // const treasure1 = new Treasure()
-    // treausure.x = ....
-    // treasure.y = ...
-    // await treasure.save()
-    // entity.treasures = [treasure1, treasure2, treasure3]
+    const entity = new Game()
     await entity.save()
+    //entity.board = randomMe()
+    // console.log("aaaaaahhhh", entity.treasures)
+    // entity.treasure.treasureX = Math.floor(Math.random() * 6)
+    // entity.treasure.treasureY = Math.floor(Math.random() * 6)
 
-    console.log('user test:', user)
+    const treasure = new Treasure()
+    treasure.row = Math.floor(Math.random() * 6)
+    treasure.column = Math.floor(Math.random() * 6)
+    treasure.game = entity
+    console.log('aaaahhhhhh', treasure)
+    await treasure.save()
+
+    const treasure2 = new Treasure()
+    treasure2.row = Math.floor(Math.random() * 6)
+    treasure2.column = Math.floor(Math.random() * 6)
+    treasure2.game = entity
+    console.log('aaaahhhhhhhhhh', treasure2)
+    await treasure2.save()
 
     await Player.create({
       game: entity,
@@ -95,8 +103,17 @@ export default class GameController {
     // this connects the frontend input with the predefined location of the treasure:
     const rowIndex = update[0]
     const columnIndex = update[1]
-    const isCorrect = rowIndex === game.treasureX && columnIndex === game.treasureY
+
+    const isCorrect = game
+      .treasures
+      .some(treasure => {
+        const correctRow = rowIndex === treasure.row
+        const correctColumn = columnIndex === treasure.column
+
+        return correctRow && correctColumn
+      })
     console.log('isCorrect test:', isCorrect)
+
     if (isCorrect) {
       game.board[rowIndex][columnIndex] = 'x'
       game.status = 'finished'
