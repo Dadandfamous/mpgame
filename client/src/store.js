@@ -24,7 +24,7 @@ if (initialCurrentUser) {
 }
 
 export default store
-Collapse
+// Collapse
 
 
 
