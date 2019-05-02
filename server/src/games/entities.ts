@@ -2,13 +2,13 @@ import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Index, OneToMany, M
 import User from '../users/entity'
 
 export type Symbol = 'x' | 'o' | null
-export type Row = [Symbol | null, Symbol | null, Symbol | 'x']
-export type Board = [Row, Row, Row]
+export type Row = [Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null]
+export type Board = [Row, Row, Row, Row, Row, Row]
 type Status = 'pending' | 'started' | 'finished'
 
-let emptyRow: Row = [null, null, null]
+let emptyRow: Row = [null, null, null, null, null, null]
 
-const emptyBoard: Board = [emptyRow, emptyRow, emptyRow]
+const emptyBoard: Board = [emptyRow, emptyRow, emptyRow, emptyRow, emptyRow, emptyRow]
 
 @Entity()
 export class Game extends BaseEntity {
@@ -28,16 +28,18 @@ export class Game extends BaseEntity {
   @Column('text', { default: 'pending' })
   status: Status
 
-  @Column('integer')
-  treasureX: number
+  // @Column('integer')
+  // treasureX: number
 
-  @Column('integer')
-  treasureY: number
+  // @Column('integer')
+  // treasureY: number
 
   // this is a relation, read more about them here:
   // http://typeorm.io/#/many-to-one-one-to-many-relations
   @OneToMany(_ => Player, player => player.game, { eager: true })
   players: Player[]
+  @OneToMany(_ => Treasure, treasure => treasure.game, { eager: true })
+  treasures: Treasure[];
 }
 
 @Entity()
@@ -58,4 +60,20 @@ export class Player extends BaseEntity {
 
   @Column('integer', { name: 'user_id' })
   userId: number
+}
+
+@Entity()
+// @Index(['game', 'user', 'symbol'], { unique: true })
+export class Treasure extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id?: number;
+
+  @ManyToOne(_ => Game, game => game.treasures)
+  game: Game;
+
+  @Column('integer')
+  row: number
+
+  @Column('integer')
+  column: number
 }
