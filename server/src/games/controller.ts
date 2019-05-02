@@ -96,14 +96,16 @@ export default class GameController {
     if (game.status !== 'started') throw new BadRequestError(`The game is not started yet`)
     if (player.symbol !== game.turn) throw new BadRequestError(`It's not your turn`)
 
-    // const rowIndex = update[1]
-    // const columnIndex = update[0]
-    // const isCorrect = rowIndex === game.treasureX && columnIndex === game.treasureY
-    // if (isCorrect) {
-    //   game.board[rowIndex][columnIndex] === 'x'
-    // } else {
-    //   game.board[rowIndex][columnIndex] === 'o'
-    // }
+    // ATTENTION //////////////
+    // this connects the frontend input with the predefined location of the treasure:
+    const rowIndex = update[1]
+    const columnIndex = update[0]
+    const isCorrect = rowIndex === game.treasureX && columnIndex === game.treasureY
+    if (isCorrect) {
+      game.board[rowIndex][columnIndex] === 'x'
+    } else {
+      game.board[rowIndex][columnIndex] === 'o'
+    }
 
     if (!isValidTransition(player.symbol, game.board, update.board)) {
       throw new BadRequestError(`Invalid move`)
