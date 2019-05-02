@@ -5,12 +5,31 @@
   border-color: black;
   border: solid;
   margin: 1px;
-  box-shadow: 0 1px 4px -1px rgba(0,0,0,.5)
-  
+  box-shadow: 0 1px 4px -1px rgba(0,0,0,.5);
+  background: pink;
+  font-size: 75px;
 }
 
 body {
   font-weight: solid;
-  background-color: lightskyblue;
+  /* background-color: lightskyblue; */
 }
 
+.button {
+  display: inline-block;
+	font-size: 18px;
+	color: #2f70e1;
+	padding: 10px 30px;  
+	box-shadow:	0px 1px 3px 0px rgba(0, 0, 0, .3);
+  cursor: pointer;
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+}
+.toggled {
+	background-color: #2f70e1;
+	color: #fff;
+}
+button {
+  margin-top: 80px;
+}

@@ -48,15 +48,10 @@ class GameDetails extends PureComponent {
       .map(p => p.userId)[0]
 
     return (<Paper className="outer-paper">
-      <h1>Game #{game.id}</h1>
+      Game #{game.id}
 
       <p>Status: {game.status}</p>
 
-      {
-        game.status === 'started' &&
-        player && player.symbol === game.turn &&
-        <div>It's your turn!</div>
-      }
 
       {
         game.status === 'pending' &&
@@ -74,6 +69,12 @@ class GameDetails extends PureComponent {
       {
         game.status !== 'pending' &&
         <Board board={game.board} makeMove={this.makeMove} />
+      }
+
+      {
+        game.status === 'started' &&
+        player && player.symbol === game.turn &&
+        <div><h1>It's your turn, start digging!</h1></div>
       }
     </Paper>)
   }
