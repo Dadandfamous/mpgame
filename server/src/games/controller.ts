@@ -17,10 +17,6 @@ export default class GameController {
   ) {
     const entity = new Game()
     await entity.save()
-    //entity.board = randomMe()
-    // console.log("aaaaaahhhh", entity.treasures)
-    // entity.treasure.treasureX = Math.floor(Math.random() * 6)
-    // entity.treasure.treasureY = Math.floor(Math.random() * 6)
 
     const treasure = new Treasure()
     treasure.row = Math.floor(Math.random() * 6)
@@ -28,16 +24,40 @@ export default class GameController {
     treasure.game = entity
     await treasure.save()
 
+    const treasure1 = new Treasure()
+    treasure1.row = Math.floor(Math.random() * 6)
+    treasure1.column = Math.floor(Math.random() * 6)
+    treasure1.game = entity
+    await treasure1.save()
+
     const treasure2 = new Treasure()
     treasure2.row = Math.floor(Math.random() * 6)
     treasure2.column = Math.floor(Math.random() * 6)
     treasure2.game = entity
     await treasure2.save()
 
+    const treasure3 = new Treasure()
+    treasure3.row = Math.floor(Math.random() * 6)
+    treasure3.column = Math.floor(Math.random() * 6)
+    treasure3.game = entity
+    await treasure3.save()
+
+    const treasure4 = new Treasure()
+    treasure4.row = Math.floor(Math.random() * 6)
+    treasure4.column = Math.floor(Math.random() * 6)
+    treasure4.game = entity
+    await treasure4.save()
+
+    const treasure5 = new Treasure()
+    treasure5.row = Math.floor(Math.random() * 6)
+    treasure5.column = Math.floor(Math.random() * 6)
+    treasure5.game = entity
+    await treasure5.save()
+
     await Player.create({
       game: entity,
       user,
-      symbol: 'x'
+      symbol: '💰'
     }).save()
 
     const game = await Game.findOneById(entity.id)
@@ -67,7 +87,7 @@ export default class GameController {
     const player = await Player.create({
       game,
       user,
-      symbol: 'o'
+      symbol: '👣'
     }).save()
 
     io.emit('action', {
@@ -113,13 +133,13 @@ export default class GameController {
     console.log('isCorrect test:', isCorrect)
 
     if (isCorrect) {
-      game.board[rowIndex][columnIndex] = 'x'
+      game.board[rowIndex][columnIndex] = '💰'
       console.log('what\'s this', game.board)
       game.status = 'finished'
       game.winner = player.symbol
     } else {
-      game.board[rowIndex][columnIndex] = 'o'
-      game.turn = player.symbol === 'x' ? 'o' : 'x'
+      game.board[rowIndex][columnIndex] = '👣'
+      game.turn = player.symbol === '💰' ? '👣' : '💰'
     }
     console.log('game.board test:', game.board)
 
