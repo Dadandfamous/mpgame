@@ -17,8 +17,8 @@ export default class GameController {
   ) {
     const entity = new Game()//.save()
     //entity.board = randomMe()
-    entity.treasureX = Math.floor(Math.random() * 3)
-    entity.treasureY = Math.floor(Math.random() * 3)
+    entity.treasureX = Math.floor(Math.random() * 6)
+    entity.treasureY = Math.floor(Math.random() * 6)
     // const treasure1 = new Treasure()
     // treausure.x = ....
     // treasure.y = ...
@@ -106,7 +106,7 @@ export default class GameController {
       game.turn = player.symbol === 'x' ? 'o' : 'x'
     }
     console.log('game.board test:', game.board)
- 
+
     await game.save()
 
     io.emit('action', {
