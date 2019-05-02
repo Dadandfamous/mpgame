@@ -87,7 +87,7 @@ export default class GameController {
     const player = await Player.create({
       game,
       user,
-      symbol: '👣'
+      symbol: '🐾'
     }).save()
 
     io.emit('action', {
@@ -138,8 +138,8 @@ export default class GameController {
       game.status = 'finished'
       game.winner = player.symbol
     } else {
-      game.board[rowIndex][columnIndex] = '👣'
-      game.turn = player.symbol === '💰' ? '👣' : '💰'
+      game.board[rowIndex][columnIndex] = '🐾'
+      game.turn = player.symbol === '💰' ? '🐾' : '💰'
     }
     console.log('game.board test:', game.board)
 

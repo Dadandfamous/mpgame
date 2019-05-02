@@ -1,7 +1,7 @@
 import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, Index, OneToMany, ManyToOne } from 'typeorm'
 import User from '../users/entity'
 
-export type Symbol = '💰' | '👣' | null
+export type Symbol = '💰' | '🐾' | null
 export type Row = [Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null, Symbol | null]
 export type Board = [Row, Row, Row, Row, Row, Row]
 type Status = 'pending' | 'started' | 'finished'
