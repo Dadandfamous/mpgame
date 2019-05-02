@@ -25,7 +25,7 @@ export default class User extends BaseEntity {
   email: string
 
   @IsString()
-  @MinLength(8)
+  @MinLength(2)
   @Column('text')
   @Exclude({ toPlainOnly: true })
   password: string
@@ -41,6 +41,6 @@ export default class User extends BaseEntity {
 
   // this is a relation, read more about them here:
   // http://typeorm.io/#/many-to-one-one-to-many-relations
-  @OneToMany(_ => Player, player => player.user) 
+  @OneToMany(_ => Player, player => player.user)
   players: Player[]
 }

@@ -1,12 +1,12 @@
-import { 
-  JsonController, Authorized, CurrentUser, Post, Param, BadRequestError, HttpCode, NotFoundError, ForbiddenError, Get, 
-  Body, Patch 
+import {
+  JsonController, Authorized, CurrentUser, Post, Param, BadRequestError, HttpCode, NotFoundError, ForbiddenError, Get,
+  Body, Patch
 } from 'routing-controllers'
 import User from '../users/entity'
 import { Game, Player, Board } from './entities'
-import {IsBoard, isValidTransition, calculateWinner, finished} from './logic'
+import { IsBoard, isValidTransition, calculateWinner, finished } from './logic'
 import { Validate } from 'class-validator'
-import {io} from '../index'
+import { io } from '../index'
 
 class GameUpdate {
 
@@ -25,10 +25,16 @@ export default class GameController {
   async createGame(
     @CurrentUser() user: User
   ) {
-    const entity = await Game.create().save()
+    const entity = new Game()//.save()
+    //entity.board = randomMe()
+    entity.treasureX = Math.floor(Math.random() * 3)
+    entity.treasureY = Math.floor(Math.random() * 3)
+    await entity.save()
+
+    console.log('user test:', user)
 
     await Player.create({
-      game: entity, 
+      game: entity,
       user,
       symbol: 'x'
     }).save()
@@ -58,7 +64,7 @@ export default class GameController {
     await game.save()
 
     const player = await Player.create({
-      game, 
+      game,
       user,
       symbol: 'o'
     }).save()
@@ -79,7 +85,7 @@ export default class GameController {
   async updateGame(
     @CurrentUser() user: User,
     @Param('id') gameId: number,
-    @Body() update: GameUpdate
+    @Body() update: GameUpdate //number[]
   ) {
     const game = await Game.findOneById(gameId)
     if (!game) throw new NotFoundError(`Game does not exist`)
@@ -89,9 +95,19 @@ export default class GameController {
     if (!player) throw new ForbiddenError(`You are not part of this game`)
     if (game.status !== 'started') throw new BadRequestError(`The game is not started yet`)
     if (player.symbol !== game.turn) throw new BadRequestError(`It's not your turn`)
+
+    // const rowIndex = update[1]
+    // const columnIndex = update[0]
+    // const isCorrect = rowIndex === game.treasureX && columnIndex === game.treasureY
+    // if (isCorrect) {
+    //   game.board[rowIndex][columnIndex] === 'x'
+    // } else {
+    //   game.board[rowIndex][columnIndex] === 'o'
+    // }
+
     if (!isValidTransition(player.symbol, game.board, update.board)) {
       throw new BadRequestError(`Invalid move`)
-    }    
+    }
 
     const winner = calculateWinner(update.board)
     if (winner) {
@@ -106,7 +122,7 @@ export default class GameController {
     }
     game.board = update.board
     await game.save()
-    
+
     io.emit('action', {
       type: 'UPDATE_GAME',
       payload: game
