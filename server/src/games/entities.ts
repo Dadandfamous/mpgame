@@ -59,3 +59,14 @@ export class Player extends BaseEntity {
   @Column('integer', { name: 'user_id' })
   userId: number
 }
+
+@Entity()
+export class Treasure extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id?: number
+  @Column('integer')
+  treasureX: number
+
+  @Column('integer')
+  treasureY: number
+}
