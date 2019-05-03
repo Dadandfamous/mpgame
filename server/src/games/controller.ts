@@ -127,14 +127,19 @@ export default class GameController {
     console.log('isCorrect test:', isCorrect)
 
     if (isCorrect) {
-      const foundAll: string[] = [""]
       game.board[rowIndex][columnIndex] = '💰'
-      if (game.board[rowIndex][columnIndex] = '💰') {
-        foundAll.push('💰')
+
+      let numberFound = 0
+      game.board.map((row) => {
+        row.map(symbol => {
+          if (symbol === '💰') numberFound += 1
+        })
+      })
+
+      if (numberFound == 5) {
+        game.status = 'finished'
+        game.winner = player.symbol
       }
-      foundAll.length = 5
-      game.status = 'finished'
-      game.winner = player.symbol
     } else {
       game.board[rowIndex][columnIndex] = '🐾'
       game.turn = player.symbol === '💰' ? '🐾' : '💰'
