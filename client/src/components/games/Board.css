@@ -3,14 +3,42 @@
   width: 100px;
   border-radius: 15px;
   border-color: black;
-  border: solid;
+  border-width: thin; 
   margin: 1px;
-  box-shadow: 0 1px 4px -1px rgba(0,0,0,.5)
-  
-}
+  box-shadow: 0 5px 5px 0px rgba(73, 71, 71, 0.5);
+  background: rgb(252, 77, 153);
+  font-size: 70px; 
+  font-weight: 350;
 
+}
+ 
 body {
   font-weight: solid;
-  background-color: lightskyblue;
+  /* background-color: lightskyblue; */
 }
 
+.button {
+  display: inline-block;
+	font-size: 18px;
+	color: #2f70e1;
+	padding: 10px 30px;  
+	box-shadow:	0px 1px 3px 0px rgba(0, 0, 0, .3);
+  cursor: pointer;
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+}
+
+button:hover {
+  color: 	#00FFFF;
+  background: 	#00FFFF;
+  transition: 1s
+}
+
+.toggled {
+	background-color: #2f70e1;
+	color: #fff;
+}
+button {
+  margin-top: 80px;
+}

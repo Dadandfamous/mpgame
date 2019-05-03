@@ -3,7 +3,7 @@ import {
   Body, Patch
 } from 'routing-controllers'
 import User from '../users/entity'
-import { Game, Player, Board } from './entities'
+import { Game, Player, Treasure } from './entities'
 import { io } from '../index'
 
 @JsonController()
@@ -15,23 +15,43 @@ export default class GameController {
   async createGame(
     @CurrentUser() user: User
   ) {
-    const entity = new Game()//.save()
-    //entity.board = randomMe()
-    entity.treasureX = Math.floor(Math.random() * 3)
-    entity.treasureY = Math.floor(Math.random() * 3)
-    // const treasure1 = new Treasure()
-    // treausure.x = ....
-    // treasure.y = ...
-    // await treasure.save()
-    // entity.treasures = [treasure1, treasure2, treasure3]
+    const entity = new Game()
     await entity.save()
 
-    console.log('user test:', user)
+    const treasure = new Treasure()
+    treasure.row = Math.floor(Math.random() * 6)
+    treasure.column = Math.floor(Math.random() * 6)
+    treasure.game = entity
+    await treasure.save()
+
+    const treasure1 = new Treasure()
+    treasure1.row = Math.floor(Math.random() * 6)
+    treasure1.column = Math.floor(Math.random() * 6)
+    treasure1.game = entity
+    await treasure1.save()
+
+    const treasure2 = new Treasure()
+    treasure2.row = Math.floor(Math.random() * 6)
+    treasure2.column = Math.floor(Math.random() * 6)
+    treasure2.game = entity
+    await treasure2.save()
+
+    const treasure3 = new Treasure()
+    treasure3.row = Math.floor(Math.random() * 6)
+    treasure3.column = Math.floor(Math.random() * 6)
+    treasure3.game = entity
+    await treasure3.save()
+
+    const treasure4 = new Treasure()
+    treasure4.row = Math.floor(Math.random() * 6)
+    treasure4.column = Math.floor(Math.random() * 6)
+    treasure4.game = entity
+    await treasure4.save()
 
     await Player.create({
       game: entity,
       user,
-      symbol: 'x'
+      symbol: '💰'
     }).save()
 
     const game = await Game.findOneById(entity.id)
@@ -61,7 +81,7 @@ export default class GameController {
     const player = await Player.create({
       game,
       user,
-      symbol: 'o'
+      symbol: '🐾'
     }).save()
 
     io.emit('action', {
@@ -95,18 +115,31 @@ export default class GameController {
     // this connects the frontend input with the predefined location of the treasure:
     const rowIndex = update[0]
     const columnIndex = update[1]
-    const isCorrect = rowIndex === game.treasureX && columnIndex === game.treasureY
+
+    const isCorrect = game
+      .treasures
+      .some(treasure => {
+        const correctRow = rowIndex === treasure.row
+        const correctColumn = columnIndex === treasure.column
+
+        return correctRow && correctColumn
+      })
     console.log('isCorrect test:', isCorrect)
+
     if (isCorrect) {
-      game.board[rowIndex][columnIndex] = 'x'
+      const foundAll: string[] = [""]
+      game.board[rowIndex][columnIndex] = '💰'
+      if (game.board[rowIndex][columnIndex] = '💰') {
+        foundAll.push('💰')
+      }
+      foundAll.length = 5
       game.status = 'finished'
       game.winner = player.symbol
     } else {
-      game.board[rowIndex][columnIndex] = 'o'
-      game.turn = player.symbol === 'x' ? 'o' : 'x'
+      game.board[rowIndex][columnIndex] = '🐾'
+      game.turn = player.symbol === '💰' ? '🐾' : '💰'
     }
-    console.log('game.board test:', game.board)
- 
+
     await game.save()
 
     io.emit('action', {

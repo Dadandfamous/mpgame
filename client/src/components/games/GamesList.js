@@ -61,7 +61,7 @@ class GamesList extends PureComponent {
 
     return (<Paper className="outer-paper">
       <Button
-        color="primary"
+        // color="primary"
         variant="contained"
         onClick={createGame}
         className="create-game"
