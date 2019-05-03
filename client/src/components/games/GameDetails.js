@@ -73,6 +73,7 @@ class GameDetails extends PureComponent {
         player && player.symbol === game.turn &&
         <div><h1>It's your turn, start digging!</h1></div>
       }
+      
         {
           winner &&
           <div><h1>Winner: {users[winner].firstName}</h1></div>

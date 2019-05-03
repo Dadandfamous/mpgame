@@ -1,3 +1,49 @@
+body {
+	width: 100wh;
+	height: 90vh;
+	background: linear-gradient(-45deg, rgb(234, 59, 150), #E73C7E, rgb(0, 0, 0), rgb(254, 255, 255));
+	background-size: 400% 400%;
+	-webkit-animation: Gradient 15s ease infinite;
+	-moz-animation: Gradient 15s ease infinite;
+	animation: Gradient 15s ease infinite;
+}
+
+@-webkit-keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
+@-moz-keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
+@keyframes Gradient {
+	0% {
+		background-position: 0% 50%
+	}
+	50% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: 0% 50%
+	}
+}
+
 .board-tile {
   height: 100px;
   width: 100px;
@@ -8,12 +54,12 @@
   box-shadow: 0 5px 5px 0px rgba(73, 71, 71, 0.5);
   background: rgb(252, 77, 153);
   font-size: 70px; 
-  font-weight: 350;
+  font-weight: 100;
 
 }
  
 body {
-  font-weight: solid;
+  font-weight: thin;
   /* background-color: lightskyblue; */
 }
 
@@ -42,3 +88,4 @@ button:hover {
 button {
   margin-top: 80px;
 }
+
