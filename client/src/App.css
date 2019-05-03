@@ -26,4 +26,31 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+/* *{
+  transition: 1s;
+-webkit-transition: 1s;
+}
+html{
+ 
+  filter: blur(10px) sepia(0);
+-o-filter: blur(10px) sepia(0);
+-ms-filter: blur(10px) sepia(0);
+-moz-filter: blur(10px) sepia(0) ;
+-webkit-filter: blur(10px) sepia(0) ;
+transition: 1s;
+-webkit-transition: 1s
+}
+html:hover{
+
+  filter: blur(0px) sepia(0) ;
+-o-filter: blur(0px) sepia(0) ;
+-ms-filter: blur(0px) sepia(0); 
+-moz-filter: blur(0px) sepia(0);
+-webkit-filter: blur(0px) sepia(0) ;
+} */
+
+
+
+
+
 
