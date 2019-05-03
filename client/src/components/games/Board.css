@@ -28,6 +28,13 @@ body {
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+ */
 }
+
+button:hover {
+  color: 	#00FFFF;
+  background: 	#00FFFF;
+  transition: 1s
+}
+
 .toggled {
 	background-color: #2f70e1;
 	color: #fff;

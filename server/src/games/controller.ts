@@ -48,12 +48,6 @@ export default class GameController {
     treasure4.game = entity
     await treasure4.save()
 
-    const treasure5 = new Treasure()
-    treasure5.row = Math.floor(Math.random() * 6)
-    treasure5.column = Math.floor(Math.random() * 6)
-    treasure5.game = entity
-    await treasure5.save()
-
     await Player.create({
       game: entity,
       user,
@@ -133,15 +127,18 @@ export default class GameController {
     console.log('isCorrect test:', isCorrect)
 
     if (isCorrect) {
+      const foundAll: string[] = [""]
       game.board[rowIndex][columnIndex] = '💰'
-      console.log('what\'s this', game.board)
+      if (game.board[rowIndex][columnIndex] = '💰') {
+        foundAll.push('💰')
+      }
+      foundAll.length = 5
       game.status = 'finished'
       game.winner = player.symbol
     } else {
       game.board[rowIndex][columnIndex] = '🐾'
       game.turn = player.symbol === '💰' ? '🐾' : '💰'
     }
-    console.log('game.board test:', game.board)
 
     await game.save()
 
