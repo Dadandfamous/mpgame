@@ -130,10 +130,10 @@ export default class GameController {
       game.board[rowIndex][columnIndex] = '💰'
 
       let numberFound = 0
-      console.log('game.boarddddddddd', game.board)
-      game.board.map((bag) => {
-        bag[rowIndex][columnIndex] === '💰'
-        return numberFound += 1
+      game.board.map((row) => {
+        row.map(symbol => {
+          if (symbol === '💰') numberFound += 1
+        })
       })
 
       if (numberFound == 5) {

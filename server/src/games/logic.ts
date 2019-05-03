@@ -13,7 +13,6 @@ export class IsBoard implements ValidatorConstraintInterface {
       )
   }
 }
-
 export const isValidTransition = (playerSymbol: Symbol, from: Board, to: Board) => {
   const changes = from
     .map(
