@@ -131,7 +131,7 @@ export default class GameController {
 
       let numberFound = 0
       console.log('game.boarddddddddd', game.board)
-      game.board.map(bag => {
+      game.board.map((bag) => {
         bag[rowIndex][columnIndex] === '💰'
         return numberFound += 1
       })
