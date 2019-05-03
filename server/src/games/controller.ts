@@ -127,11 +127,12 @@ export default class GameController {
     console.log('isCorrect test:', isCorrect)
 
     if (isCorrect) {
-      const foundAll: any = []
+      const foundAll: string[] = [""]
       game.board[rowIndex][columnIndex] = '💰'
       if (game.board[rowIndex][columnIndex] = '💰') {
         foundAll.push('💰')
       }
+      foundAll.length = 5
       game.status = 'finished'
       game.winner = player.symbol
     } else {
