@@ -1,8 +1,5 @@
-# Multiplayer Tic Tac Toe
-
+# 🐶 Multiplayer Treasurehunt Extreme 🐶
 This repo contains a frontend and backend for a multiplayer tic tac toe game. It uses Typescript, Koa, routing-controllers and TypeORM in the backend and React/Redux in the frontend. The backend exposes a REST API but also sends messages over websockets using SocketIO. 
-
-![example](https://cd.sseu.re/tictactoe-low.gif)
 
 ## Getting Started
 
@@ -22,10 +19,16 @@ $ docker run \
 
 Then `cd` into the `server` directory and run `npm install` to install the dependencies.
 
+===> BEFORE starting the server for the first time, comment out the following lines 61 & 62:
+
+    server/src/games/entities.ts :
+
+    @Column('integer', { name: 'user_id' })
+    userId: number
+
 Start the server with the `npm run dev`
 
 ### React Client
 
 Open another terminal session and `cd` into the `client` directory, then run `npm install` to install dependencies and run `npm start` to start the dev server.
 
-  
