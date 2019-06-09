@@ -28,14 +28,6 @@ export class Game extends BaseEntity {
   @Column('text', { default: 'pending' })
   status: Status
 
-  // @Column('integer')
-  // treasureX: number
-
-  // @Column('integer')
-  // treasureY: number
-
-  // this is a relation, read more about them here:
-  // http://typeorm.io/#/many-to-one-one-to-many-relations
   @OneToMany(_ => Player, player => player.game, { eager: true })
   players: Player[]
   @OneToMany(_ => Treasure, treasure => treasure.game, { eager: true })
@@ -63,7 +55,6 @@ export class Player extends BaseEntity {
 }
 
 @Entity()
-// @Index(['game', 'user', 'symbol'], { unique: true })
 export class Treasure extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number;
