@@ -1,7 +1,5 @@
-import {
-  JsonController, Authorized, CurrentUser, Post, Param, BadRequestError, HttpCode, NotFoundError, ForbiddenError, Get,
-  Body, Patch
-} from 'routing-controllers'
+import { JsonController, Authorized, CurrentUser, Post, Param, BadRequestError, HttpCode, NotFoundError, ForbiddenError, Get,
+  Body, Patch } from 'routing-controllers'
 import User from '../users/entity'
 import { Game, Player, Treasure } from './entities'
 import { io } from '../index'
