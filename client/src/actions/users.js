@@ -1,6 +1,6 @@
 import * as request from 'superagent'
-import {baseUrl} from '../constants'
-import {isExpired} from '../jwt'
+import { baseUrl } from '../constants'
+import { isExpired } from '../jwt'
 
 export const ADD_USER = 'ADD_USER'
 export const UPDATE_USER = 'UPDATE_USER'
@@ -43,34 +43,40 @@ const updateUsers = (users) => ({
 })
 
 export const login = (email, password) => (dispatch) =>
-	request
-		.post(`${baseUrl}/logins`)
-    .send({email, password})
-    .then(result => dispatch(userLoginSuccess(result.body)))
-    .catch(err => {
-    	if (err.status === 400) {
-    		dispatch(userLoginFailed(err.response.body.message))
-    	}
-    	else {
-    		console.error(err)
-    	}
-    })
+  request
+  .post(`${baseUrl}/logins`)
+  .send({
+    email,
+    password
+  })
+  .then(result => dispatch(userLoginSuccess(result.body)))
+  .catch(err => {
+    if (err.status === 400) {
+      dispatch(userLoginFailed(err.response.body.message))
+    } else {
+      console.error(err)
+    }
+  })
 
 export const signup = (email, password) => (dispatch) =>
-	request
-		.post(`${baseUrl}/users`)
-		.send({ firstName: email, lastName: email, email, password })
-		.then(result => {
-			dispatch(userSignupSuccess())
-		})
-		.catch(err => {
-			if (err.status === 400) {
-				dispatch(userSignupFailed(err.response.body.message))
-			}
-			else {
-				console.error(err)
-			}
-		})
+  request
+  .post(`${baseUrl}/users`)
+  .send({
+    firstName: email,
+    lastName: email,
+    email,
+    password
+  })
+  .then(result => {
+    dispatch(userSignupSuccess())
+  })
+  .catch(err => {
+    if (err.status === 400) {
+      dispatch(userSignupFailed(err.response.body.message))
+    } else {
+      console.error(err)
+    }
+  })
 
 export const getUsers = () => (dispatch, getState) => {
   const state = getState()

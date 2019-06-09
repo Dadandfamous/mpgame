@@ -18,12 +18,11 @@ The first player that finds 5 treasures, wins. In this example, you see the the 
 - **[Goals for this project](#goals-for-this-project)**
 - **[Requirements briefing](#requirements)**
 - **[My git workflow](#my-git-workflow)**
-- **[My agile workflow and trello board](#my-agile-workflow-and-trello-board)**
 - **[Running the game](#running-the-game)**
 
 ## Technologies used
 
-#### 👀👇 Click links to view some samples in this project 👇👀
+#### Click links to view some samples in this project
 
 - **[react](./client/src/components/games/GameDetails.js)**  
 - **[redux](./client/src/reducers/games.js)**  
