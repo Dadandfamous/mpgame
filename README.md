@@ -19,14 +19,13 @@ The first player that finds 5 treasures, wins. In this example, you see the the 
 - **[Requirements briefing](#requirements)**
 - **[My git workflow](#my-git-workflow)**
 - **[My agile workflow and trello board](#my-agile-workflow-and-trello-board)**
-- **[create-react-app-docs](#create-react-app)**
 - **[Running the game](#running-the-game)**
 
 ## Technologies used
 
 #### 👀👇 Click links to view some samples in this project 👇👀
 
-- **[react](./client/src/components/GameDetails.js)**  
+- **[react](./client/src/components/games/GameDetails.js)**  
 - **[redux](./client/src/reducers/games.js)**  
 - **[typeORM](./server/src/games/controller.ts)**  
 
@@ -54,14 +53,6 @@ development             \_____________/- pull request
                          \           /
 feature/some-feature      \_commits_/- pull request
 ```
-
-## Create React App
-
-This project was scaffolded using the create-react-app cli. 
-
-**[The standard create-react-app docs can be found in here](./create-react-app-docs.md)**
-
-
 
 ## Running the game
 
